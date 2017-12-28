@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>写个插件试一试</title>
+	<script src="./jquery.js"></script>
+	<script src="./lemonPaging.js"></script>
+	<link rel="stylesheet" href="lemonPaging.css">
+</head>
+<style>
+	*{
+		font-size:12px;
+	}
+	html{
+		font-size:100px;
+	}
+</style>
+<body>
+	<p>测试区</p>
+	<!--分页-->
+	<div class="pagenav"></div>
+	<div id="page"></div>
+</body>
+<script>
+// 扩展$
+jQuery.extend({
+	'min':function(a,b){
+		return a<b?a:b;
+	},
+	'unique':function(arr){
+		var zl=[];
+		if(typeof(arr)=='object'){
+			$.each(arr,function(k,v){
+				if(arr.indexOf(v) == k){
+					zl.push(v);
+				}
+			})
+		}
+		return zl;
+	}
+});
+// (function(jQuery){
+
+// })(jQuery)
+$(function(){
+	var a=99,b=66;
+	// $.min(a,b);
+	console.log($.min(a,b));
+	console.log($.unique([12,44,66,789,66,12]))
+	
+})
+// php链接测试
+// var pagedata;
+// var page_size;
+// var pages;
+// var current_page;
+// $.ajax({
+// 	type:"GET",
+// 	url:"page.php",
+// 	dataType:'json',//省去了字符串转化json
+// 	data:{current_page:12},
+// 	success:function(data){
+// 		createPaging(data.total,data.page_size,data.current_page);
+// 	}
+// })
+// total数据总数,pagesize单页显示条数,current_page当前页,last_page页总数
+	//var pages=7;显示页码数量建议设置为奇数
+	// 限制显示页码数量之后页码存在四种状态
+	// 1.页码总数小于限制数 1 2 3
+	// 2.当前页小于限制数 123456...10
+	// 3.当前页大于限制数 1...45678...10
+	// 4.  1...5678910；
+
+
+// 调用方法举例
+$('.pagenav').lemonPaging({
+	'url':"page1.php",//ajax请求地址
+	'total':217,//默认数据在非ajax本地时生效的总数据条数
+	'page_size':10,//每页数据条数
+	'pages':7,//分页可显示页码数量
+	'pre_next':'true',//默认显示上一页下一页
+	'searchable':'true',//默认带跳转输入框
+	'successcallback':function(data){
+		console.log(11);
+	},//列表数据填充容器
+});
+
+
+
+
+
+
+</script>
+</html>
